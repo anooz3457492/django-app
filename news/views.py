@@ -51,4 +51,16 @@ class NewsTemplateView(TemplateView):
         print(context)
         return context
 
+class NewsDetail(DetailView):
+    model = News
+    template_name = "news/single_news.html"
+    context_object_name = "detail_news"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.object.count = self.object.count + 1
+        self.object.save()
+        context["popular_news"] = News.objects.order_by("-count")[:4]
+        return context       
+
 
