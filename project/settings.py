@@ -12,15 +12,21 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+print(os.getenv("EMAIL_HOST_USER"))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'xjo7@35$8$v^$gp!=4t)j5$d495c)_96tfy(wym+yn7g9_7ga('
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -138,10 +144,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '62a8c938ed1b37'
-EMAIL_HOST_PASSWORD = 'a1698842d6d53f'
-EMAIL_PORT = '2525'
-
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = "/"
+
+AUTH_USER_MODEL = "accounts.User"

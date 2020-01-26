@@ -10,7 +10,8 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from accounts.tokens import activation_token
 
-from django.contrib.auth.models import User
+from accounts.models import User
+
 
 # Create your views here.
 
@@ -42,7 +43,7 @@ class UserRegistrationView(View):
 
             email = EmailMessage(message_subject, message, to=[user_email])
             email.send()
-            activation_msg = "Open your email to activate your account."
+            activation_msg = "Open your email to activate account."
             return render(
                 request, "accounts/activate_email.html", {"activation_msg": activation_msg}
             )
@@ -52,6 +53,7 @@ class UserRegistrationView(View):
 
 
 def activate(request, uidb64, token):
+    print("I am active view")
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(id=uid)
@@ -60,6 +62,5 @@ def activate(request, uidb64, token):
 
     if user is not None and activation_token.check_token(user, token):
         user.is_active = True
-        user.save()
         return render(request, "accounts/activation_success.html")
     return render(request, "accounts/activation_fail.html")
