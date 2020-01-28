@@ -12,6 +12,7 @@ pillow = "==7.0.0"
 pylint = "*"
 django-crispy-forms = "==1.8.1"
 python-dotenv = "==0.10.3"
+djangorestframework = "==3.11.0"
 
 [requires]
 python_version = "3.7"

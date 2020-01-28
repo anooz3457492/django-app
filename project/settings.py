@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     #third party
     "crispy_forms",
+    "rest_framework",
 
     #custom app
     "news",
